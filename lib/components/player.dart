@@ -38,7 +38,8 @@ class Player extends SpriteAnimationComponent with HasGameRef {
     _moveLeftAnimation = _runAnimation;
 
     animation = _idleAnimation;
-    position = Vector2.all(200);
+    position = Vector2(150, 200);
+    size = Vector2.all(80);
     // await _loadAnimations().then((_) => {animation = _standingAnimation});
     print('initialized.');
   }
@@ -55,39 +56,23 @@ class Player extends SpriteAnimationComponent with HasGameRef {
     switch (direction) {
       case Direction.up:
         animation = _moveUpAnimation;
-        // moveUp(delta);
+        if (y - 80 > 0) y -= 1;
         break;
       case Direction.down:
         animation = _moveDownAnimation;
-        // moveDown(delta);
+        if (y + 80 < gameRef.size.y) y += 1;
         break;
       case Direction.left:
         animation = _moveLeftAnimation;
-        // moveLeft(delta);
+        if (x - 80 > 0) x -= 1;
         break;
       case Direction.right:
         animation = _moveRightAnimation;
-        // moveRight(delta);
+        if (x + 80 < gameRef.size.x) x += 1;
         break;
       case Direction.none:
         animation = _idleAnimation;
         break;
     }
-  }
-
-  void moveUp(double delta) {
-    position.add(Vector2(0, -1 * delta * _playerSpeed));
-  }
-
-  void moveDown(double delta) {
-    position.add(Vector2(0, delta * _playerSpeed));
-  }
-
-  void moveLeft(double delta) {
-    position.add(Vector2(-1 * delta * _playerSpeed, 0));
-  }
-
-  void moveRight(double delta) {
-    position.add(Vector2(1 * delta * _playerSpeed, 0));
   }
 }
